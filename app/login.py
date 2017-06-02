@@ -1,6 +1,6 @@
 from app import auth, app, db
 from .models import Users
-from flask import jsonify, g
+from flask import jsonify, g, abort
 from datetime import datetime
 
 @auth.verify_password
@@ -11,6 +11,7 @@ def verify_password(username_or_token, password):
 		#try to authenticate with username and password
 		user = Users.query.filter_by(username = username_or_token).first()
 		if not user or not user.verify_password(password):
+			abort(400)
 			return False
 	timestamp = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 	user.last_login = timestamp

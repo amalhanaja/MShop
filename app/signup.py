@@ -21,7 +21,8 @@ def sign_up():
 	db.session.add(user)
 	db.session.commit()
 	return jsonify(
-			message="Terimakasih %s Telah mendaftar di MShop" % username
+			username = username,
+			level = "USER"
 		)
 
 @app.route('/create_user/<level>', methods=['POST'])
@@ -48,7 +49,8 @@ def create_user(level):
 		db.session.add(user)
 		db.session.commit()
 		return jsonify(
-				message="Anda Baru saja Mendaftarkan %s sebagai %s" % (username, level)
+			username = username,
+			level = level			
 		)
 	else:
 		abort(400)
