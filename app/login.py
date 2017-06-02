@@ -23,14 +23,35 @@ def verify_password(username_or_token, password):
 @app.route('/login')
 @auth.login_required
 def login():
+	id_user = g.user.id_user
+	username = g.user.username
+	email = g.user.email
+	last_login = g.user.last_login
+	nama_lengkap = g.user.nama_lengkap
+	hp = g.user.hp
+	alamat = g.user.alamat
+	kode_pos = g.user.kode_pos
+	level = g.user.level_user
+
+	if not nama_lengkap:
+		nama_lengkap = ""
+	if not last_login:
+		last_login = ""
+	if not alamat:
+		alamat = ""
+	if not hp:
+		hp = ""
+	if not kode_pos:
+		kode_pos = ""
+
 	return jsonify(
-			id_user = g.user.id_user,
-			username = g.user.username,
-			email = g.user.email,
-			last_login = g.user.last_login,
-			nama_lengkap = g.user.nama_lengkap,
-			hp = g.user.hp,
-			alamat = g.user.alamat,
-			kode_pos = g.user.kode_pos,
-			level = g.user.level_user
+			id_user = str(id_user),
+			username = str(username),
+			email = str(email),
+			last_login = str(last_login),
+			nama_lengkap = str(nama_lengkap),
+			hp = str(hp),
+			alamat = str(alamat),
+			kode_pos = str(kode_pos),
+			level = str(level)
 		)
