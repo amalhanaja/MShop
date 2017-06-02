@@ -23,9 +23,14 @@ def verify_password(username_or_token, password):
 @app.route('/login')
 @auth.login_required
 def login():
-	token = g.user.generate_auth_token(600)
-	level = g.user.level_user
 	return jsonify(
-			token = token.decode('ASCII'),
-			level = level
+			id_user = g.user.id_user,
+			username = g.user.username,
+			email = g.user.email,
+			last_login = g.user.last_login,
+			nama_lengkap = g.user.nama_lengkap,
+			hp = g.user.hp,
+			alamat = g.user.alamat,
+			kode_pos = g.user.kode_pos,
+			level = g.user.level_user
 		)

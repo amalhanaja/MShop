@@ -21,7 +21,7 @@ def sign_up():
 	db.session.add(user)
 	db.session.commit()
 	return jsonify(
-			message="Anda Baru saja terdaftar"
+			message="Terimakasih %s Telah mendaftar di MShop" % username
 		)
 
 @app.route('/create_user/<level>', methods=['POST'])
@@ -29,10 +29,9 @@ def create_user(level):
 	username = request.form.get('username')
 	password = request.form.get('password')
 	email = request.form.get('email')
-	full_name = request.form.get('full_name')
 	level = level.upper()
 
-	if not username or not password or not email or not full_name:
+	if not username or not password or not email:
 		abort(400)
 	if Users.query.filter_by(username = username).first() is not None :
 		abort(400)
@@ -43,14 +42,13 @@ def create_user(level):
 		user = Users(
 				username = username,
 				email = email,
-				full_name = full_name,
 				level_user = level
 			)
 		user.hash_password(password)
 		db.session.add(user)
 		db.session.commit()
 		return jsonify(
-				message="Anda Baru saja terdaftar sebagai " + level.upper()
+				message="Anda Baru saja Mendaftarkan %s sebagai %s" % (username, level)
 		)
 	else:
 		abort(400)
